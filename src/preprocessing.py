@@ -1,23 +1,35 @@
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
-def stage_1_analysis(file_path):
-    # Cargar los datos
+def preprocess_data(file_path):
+    # Cargar datos [cite: 63, 124]
     df = pd.read_csv(file_path)
     
-    # 1. Data Info 
-    print("--- DATA INFO ---")
-    print(df.info())
+    # 1. Limpieza: Eliminar ID (no aporta al modelo) y manejar nulos [cite: 28, 130, 158]
+    df = df.drop(columns=['id'])
     
-    # 2. Data Describe 
-    print("\n--- DATA DESCRIBE ---")
-    print(df.describe())
+    # Convertir diagnóstico a números (M=1, B=0) [cite: 125, 156]
+    df['diagnosis'] = df['diagnosis'].map({'M': 1, 'B': 0})
     
-    # 3. Data Values and Counts [cite: 27]
-    print("\n--- DIAGNOSIS COUNTS (M = Malignant, B = Benign) ---")
-    print(df['diagnosis'].value_counts())
+    # 2. Separar características (X) y etiqueta (y) [cite: 131, 159]
+    X = df.drop(columns=['diagnosis'])
+    y = df['diagnosis']
     
-    return df
+    # 3. Dividir en entrenamiento y prueba (80/20) [cite: 131, 159]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # 4. Normalización (Scaling) [cite: 29, 156]
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    
+    print("--- Preprocessing Complete ---")
+    print(f"Train size: {X_train_scaled.shape}")
+    print(f"Test size: {X_test_scaled.shape}")
+    
+    return X_train_scaled, X_test_scaled, y_train, y_test
 
 if __name__ == "__main__":
     path = "data/breast-cancer-wisconsin.data.csv"
-    stage_1_analysis(path)
+    preprocess_data(path)
