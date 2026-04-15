@@ -1,0 +1,24 @@
+artifact_path: file:C:/Users/erick/Desktop/Maestria/Maestria_clases_2025/2 Semestre/03.=PROGRAMACION
+  II/Retos/2.-Challenge intermedio/Challenge/mlruns/1/models/m-9a2e9c32a91c4c3b81cad93a57a7091a/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.11.1
+model_id: m-9a2e9c32a91c4c3b81cad93a57a7091a
+model_size_bytes: 317188
+model_uuid: m-9a2e9c32a91c4c3b81cad93a57a7091a
+prompts: null
+run_id: 5253e34903414ff0b41ee4fe2bcb0284
+utc_time_created: '2026-04-15 18:22:04.288079'
